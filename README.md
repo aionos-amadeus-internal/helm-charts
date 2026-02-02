@@ -38,10 +38,13 @@ Value files per environment (same minimal resources for all for now):
 
 ## Override Pattern (project-specific values)
 
-Application repos keep a small values file (e.g. `deploy/values.yaml` or `helm-values.yaml`) that overrides:
+Charts are **generic**: no project-specific hostnames, domains, or TLS. Application repos own all of that via **per-env values** (e.g. `deploy/values-develop.yaml`, `deploy/values-main.yaml`).
+
+Application values override:
 
 - `nameOverride` / `fullnameOverride` (release name)
 - `image.repository`, `image.tag`, `image.pullPolicy`
+- **`ingress.enabled`, `ingress.hosts`, `ingress.tls`, `ingress.annotations`** (host and TLS **must** be set here, not in the chart)
 - `env` (environment variables)
 
 **Merge order in Helm:**

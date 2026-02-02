@@ -19,23 +19,22 @@ resources:
 
 service:
   type: ClusterIP
-  port: 3000
+  port: 80
+  targetPort: 3000  # container port (app listens here)
 
 # Environment variables for the container (key-value map)
 env: {}
 
-# Ingress configuration
+# Ingress: disabled by default. Host, TLS, and annotations MUST be set by the
+# consuming application (e.g. <app>/deploy/values-<env>.yaml). Do not add
+# project-specific domains or hosts in this reusable chart.
 ingress:
   enabled: false
-  className: "traefik"  # k3s default ingress class
+  className: "traefik"
   annotations: {}
   hosts:
-    - host: ""
+    - host: ""   # Override in app deploy/values-<env>.yaml
       paths:
         - path: /
           pathType: Prefix
   tls: []
-  # Example TLS configuration:
-  # - secretName: app-tls
-  #   hosts:
-  #     - api.example.com
