@@ -1,0 +1,25 @@
+# Base defaults for React static (nginx) apps. Override in app-specific values or env files.
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+  repository: ""
+  tag: latest
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 256Mi
+
+service:
+  type: ClusterIP
+  port: 80
+
+# Environment variables for the container (key-value map)
+env: {}

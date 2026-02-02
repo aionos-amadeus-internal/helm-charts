@@ -1,0 +1,25 @@
+# Base defaults for FastAPI apps. Override in app-specific values or env files.
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+  repository: ""
+  tag: latest
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 512Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+
+service:
+  type: ClusterIP
+  port: 8000
+
+# Environment variables for the container (key-value map)
+env: {}
