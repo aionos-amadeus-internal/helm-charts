@@ -20,7 +20,7 @@ resources:
 service:
   type: ClusterIP
   port: 80
-  targetPort: 3000  # container port (app listens here)
+  targetPort: 80    # container port (nginx)
 
 # Environment variables for the container (key-value map)
 env: {}
