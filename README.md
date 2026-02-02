@@ -5,10 +5,9 @@ Generic, modular Helm charts for Node.js, React (nginx static), and FastAPI appl
 ## Layout
 
 ```
-chart/
-  node/      # Node.js apps (default port 3000)
-  react/     # React static apps served by nginx (port 80)
-  fastapi/   # FastAPI apps (port 8000)
+node/      # Node.js apps (default port 3000)
+react/     # React static apps served by nginx (port 80)
+fastapi/   # FastAPI apps (port 8000)
 ```
 
 Each chart is standalone: `Chart.yaml`, `values.yaml`, env-specific value files, and `templates/`.
@@ -32,16 +31,16 @@ Application repos keep a small values file (e.g. `deploy/values.yaml` or `helm-v
 
 **Merge order in Helm:**
 
-1. Base: `chart/<stack>/values.yaml`
-2. Env: `chart/<stack>/values-<env>.yaml`
+1. Base: `<stack>/values.yaml`
+2. Env: `<stack>/values-<env>.yaml`
 3. App: your project's values file (last wins)
 
 Example:
 
 ```bash
-helm upgrade --install my-app ./chart/node \
-  -f chart/node/values.yaml \
-  -f chart/node/values-develop.yaml \
+helm upgrade --install my-app ./node \
+  -f node/values.yaml \
+  -f node/values-develop.yaml \
   -f ./deploy/values.yaml \
   -n my-namespace --create-namespace
 ```
@@ -50,7 +49,7 @@ helm upgrade --install my-app ./chart/node \
 
 1. **Secret**: Add the chart repo URL as a repo secret (e.g. `HELM_CHARTS_REPO_URL`). Use HTTPS with a PAT or SSH.
 
-2. **Checkout chart repo**: In the deploy job, checkout this repo (e.g. with `path: helm-charts` so chart path is `helm-charts/chart/<stack>`).
+2. **Checkout chart repo**: In the deploy job, checkout this repo (e.g. with `path: helm-charts` so chart path is `helm-charts/<stack>`).
 
    Example (second checkout):
 
@@ -63,7 +62,7 @@ helm upgrade --install my-app ./chart/node \
        path: helm-charts
    ```
 
-3. **Select chart and env**: Set `CHART_PATH=helm-charts/chart/node` (or `react` / `fastapi`) and `VALUES_ENV=develop` (or `release`, `pre-release`, `main`) from branch or inputs.
+3. **Select chart and env**: Set `CHART_PATH=helm-charts/node` (or `react` / `fastapi`) and `VALUES_ENV=develop` (or `release`, `pre-release`, `main`) from branch or inputs.
 
 4. **Deploy**:
 
