@@ -99,3 +99,33 @@ env:
 | **fastapi**| 200m / 1000m           | 512Mi / 1Gi               | For Playwright/Chromium stacks |
 
 Replicas: 1. Override in your app values or env-specific value files when you need to diverge per environment.
+
+## Ingress Configuration
+
+All charts support Ingress for public access. Enable it in your app-specific values:
+
+**Frontend (React):**
+```yaml
+ingress:
+  enabled: true
+  className: "traefik"
+  hosts:
+    - host: agent-studio.aionos.co
+      paths:
+        - path: /
+          pathType: Prefix
+```
+
+**API (Node.js/FastAPI):**
+```yaml
+ingress:
+  enabled: true
+  className: "traefik"
+  hosts:
+    - host: api.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+```
+
+See [INGRESS_EXAMPLES.md](INGRESS_EXAMPLES.md) for detailed examples including TLS, path-based routing, and Traefik annotations.

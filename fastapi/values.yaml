@@ -23,3 +23,19 @@ service:
 
 # Environment variables for the container (key-value map)
 env: {}
+
+# Ingress configuration
+ingress:
+  enabled: false
+  className: "traefik"  # k3s default ingress class
+  annotations: {}
+  hosts:
+    - host: ""
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+  # Example TLS configuration:
+  # - secretName: app-tls
+  #   hosts:
+  #     - api.example.com
