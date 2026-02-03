@@ -22,7 +22,15 @@ service:
   port: 80
   targetPort: 8000  # container port (app listens here)
 
+# Secrets reference (Kubernetes Secret name)
+# If provided, all keys from the secret will be injected as environment variables via envFrom
+# Sensitive values (DATABASE_URL, API keys, SECRET_KEY) should be in Kubernetes Secrets
+secrets:
+  secretName: ""  # e.g., agent-studio-backend-secrets-develop
+
 # Environment variables for the container (key-value map)
+# Non-sensitive configuration: Set actual values here
+# Sensitive configuration: Managed separately via Kubernetes Secrets (see secrets.secretName above)
 env: {}
 
 # Ingress: disabled by default. Host, TLS, and annotations MUST be set by the
